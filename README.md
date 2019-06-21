@@ -13,13 +13,14 @@ Role Variables
 
 See defaults/main.yml.
 
-All variables sit under ```s3cmd``` key:
+All variables sit under `s3cmd` key:
 
 ```
 s3cmd:
   key: 'aws-key'
   secret: 'aws-secret'
-  user: 'root'
+  user: 'username'
+  path: '/custom/path'
 ```
 
     key: 'aws-key'
@@ -32,7 +33,12 @@ Your secret IAM key. Do not leave these in plain text. Use Ansible Vault or anot
 
     user: 'root'
 
-User to place the ```.s3cfg``` under. Defaults to the root user.
+User to place the `.s3cfg` under. Defaults to the root user.
+
+    path: '/custom/path'
+
+Use this variable if you need the config file to be placed in a directory other than the user's home directory. For example if the user is a service/daemon user that does not have a home directory.
+
 
 Dependencies
 ------------
@@ -42,7 +48,9 @@ None
 Example Playbook
 ----------------
 
-Obviously you will need to pass in your git repository details (not the example/default ones):
+Obviously you will need to pass in your AWS keys (not the example/default ones).
+
+The example below uses ansible vault encrypted strings:
 
     - hosts: servers
       vars: 
@@ -61,7 +69,7 @@ Obviously you will need to pass in your git repository details (not the example/
           23426663434323236313530653935643837363162373431613461636337663332396535343364373
           33232562366339333636633933366438613462656465663730353330353763393963666433613965
           46464323938626463616663316632323638316364386564623236383163643863
-          user: 'root'
+          user: 'john'
 
       roles:
         - lukasgibb.s3cmd
