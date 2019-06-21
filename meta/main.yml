@@ -16,7 +16,8 @@ galaxy_info:
   galaxy_tags:
     - amazon
     - s3
-    - object storage
+    - object
+    - storage
     - s3cmd
     - aws
     
