@@ -1,0 +1,31 @@
+---
+# tasks file for s3cmd
+
+- name: Install s3cmd via apt
+  apt:
+    name: "{{ packages }}"
+    state: present
+  vars:
+    packages:
+    - s3cmd
+  register: my_result
+  until: my_result is succeeded
+  tags: s3cmd
+
+- name: Configure s3cmd for user
+  template:
+    src: s3cfg.j2
+    dest: "/home/{{ s3cmd.user }}/.s3cfg"
+    owner: "{{ s3cmd.user }}"
+    group: "{{ s3cmd.user }}"
+  when: s3cmd.user != "root"
+  tags: s3cmd
+
+- name: Configure s3cmd for root
+  template:
+    src: s3cfg.j2
+    dest: "/{{ s3cmd.user }}/.s3cfg"
+    owner: "{{ s3cmd.user }}"
+    group: "{{ s3cmd.user }}"
+  when: s3cmd.user == "root"
+  tags: s3cmd

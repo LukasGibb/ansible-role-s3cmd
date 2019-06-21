@@ -1,0 +1,10 @@
+---
+- hosts: all
+  vars:  
+    s3cmd:
+      key: 'aws_key'
+      secret: 'aws_secret'
+      user: 'root'
+
+  roles:
+    - role_under_test

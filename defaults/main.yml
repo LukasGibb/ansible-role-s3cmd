@@ -1,0 +1,8 @@
+---
+# defaults file for s3cmd
+
+s3cmd:
+  key: ''
+  secret: ''
+  user: 'root'
+  
