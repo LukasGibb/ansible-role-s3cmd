@@ -1,8 +1,18 @@
 ---
 # defaults file for s3cmd
 
+# The credentials for the S3 bucket
 s3cmd:
   key: ''
   secret: ''
   user: 'root'
-  
+  path: ''
+
+# User
+# The user that should own the config file
+
+# Path
+# If this is empty the config file will go into the user's home directory
+# Set a path if you want the s3cmd config file put into a different path.
+# ie. when the s3cmd.user is a system user with no home folder
+# eg. s3cmd_config_path: "/etc/asterisk"

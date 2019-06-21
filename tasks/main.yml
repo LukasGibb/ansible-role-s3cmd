@@ -12,15 +12,6 @@
   until: my_result is succeeded
   tags: s3cmd
 
-- name: Configure s3cmd for user
-  template:
-    src: s3cfg.j2
-    dest: "/home/{{ s3cmd.user }}/.s3cfg"
-    owner: "{{ s3cmd.user }}"
-    group: "{{ s3cmd.user }}"
-  when: s3cmd.user != "root"
-  tags: s3cmd
-
 - name: Configure s3cmd for root
   template:
     src: s3cfg.j2
@@ -28,4 +19,22 @@
     owner: "{{ s3cmd.user }}"
     group: "{{ s3cmd.user }}"
   when: s3cmd.user == "root"
+  tags: s3cmd
+
+- name: Configure s3cmd for user
+  template:
+    src: s3cfg.j2
+    dest: "/home/{{ s3cmd.user }}/.s3cfg"
+    owner: "{{ s3cmd.user }}"
+    group: "{{ s3cmd.user }}"
+  when: s3cmd.user != "root" and s3cmd.path == ""
+  tags: s3cmd
+
+- name: Configure s3cmd in custom path
+  template:
+    src: s3cfg.j2
+    dest: "{{ s3cmd.path }}/.s3cfg"
+    owner: "{{ s3cmd.user }}"
+    group: "{{ s3cmd.user }}"
+  when: s3cmd.path != ""
   tags: s3cmd
